@@ -4,7 +4,9 @@ import { render, screen } from '@testing-library/react';
 import Episode from './../Episode';
 
 
-test("renders without error", () => {});
+test("renders without error", () => {
+    render(<Episode episode={1}/>)
+});
 
 test("renders the summary test passed as prop", ()=>{});
 
