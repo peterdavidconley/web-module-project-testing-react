@@ -12,7 +12,7 @@ test("renders the summary test passed as prop", ()=>{
 
     // Arrange 
 
-    render(<Episode episode={1} summary={/Such a strange thing./i}/>)
+    render(<Episode episode={{summary: 'Such a strange thing.'}} />)
 
     // Act 
 
