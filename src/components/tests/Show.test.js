@@ -23,7 +23,7 @@ console.log(testData)
 
 test('renders without errors', ()=>{
 
-    render(<Show show={null}/>)
+    render(<Show show={testData} selectedSeason={'none'}/>)
 
 });
 
