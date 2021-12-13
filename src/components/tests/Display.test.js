@@ -4,6 +4,7 @@ import { render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Display from './../Display';
+import Show from '../Show';
 
 const testData = {
 
@@ -24,8 +25,40 @@ test('renders without errors with no props', ()=>{
 
 });
 
-test('renders Show component when the button is clicked ', ()=>{});
+test('renders Show component when the button is clicked ', ()=>{
 
-test('renders show season options matching your data when the button is clicked', ()=>{});
+    // Arrange 
 
-test('renders show season options matching your data when the button is clicked', ()=>{});
+    render(<Display />)
+
+    // Act
+
+    const button = screen.getByRole('button')
+    userEvent.click(button)
+    const showComponent = screen.getByText(/Stranger Things/i)
+
+    // Assert
+
+    expect(showComponent).toBeInTheDocument();
+
+});
+
+test('renders show season options matching your data when the button is clicked', ()=>{
+
+    // Arrange 
+
+    render(<Display />)
+
+    // Act
+
+    const button = screen.getByRole('button');
+    userEvent.click(button);
+    const seasonOptions = screen.getByRole('select');
+
+    // Assert
+
+    expect(seasonOptions).toHaveLength(4)
+
+});
+
+

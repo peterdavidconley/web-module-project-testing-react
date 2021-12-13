@@ -42,28 +42,32 @@ test('renders same number of options seasons are passed in', ()=>{
 
     // Act 
 
-    const seasonOptions = screen.getByRole('select')
+    const seasonOptions = screen.getByRole('option')
+    const dataOptions = testData.seasons.length
 
     // Assert 
 
-    expect(seasonOptions).toHaveLength(4)
+    expect(seasonOptions).toHaveLength(dataOptions)
 
 
 });
 
 test('handleSelect is called when an season is selected', () => {
 
+    const handleCalled = jest.fn();
+
      // Arrange 
 
-     render(<Show selectedSeason={1}/>)
+     render(<Show selectedSeason={1} handleSelect={handleCalled}/>)
 
     // Act 
 
-    const handleCalled = screen.getByRole('');
+    const button = screen.getByRole('button');
+    userEvent.click(button);
 
     // Assert 
 
-    expect(handleCalled).toBeInTheDocument();
+    expect(handleCalled).toBeCalled();
 
 });
 
@@ -75,7 +79,7 @@ test('component renders when no seasons are selected and when rerenders with a s
 
     // Act 1
 
-    const noSeasons = screen.queryAllByTestId('selectedSeason')
+    const noSeasons = screen.queryByText('Chapter One: The Vanishing of Will Byers')
 
     // Assert 1
 
@@ -87,7 +91,7 @@ test('component renders when no seasons are selected and when rerenders with a s
 
     // Act 2
 
-    noSeasons = screen.queryAllByTestId('selectedSeason')
+    noSeasons = screen.queryByText('Chapter One: The Vanishing of Will Byers')
 
     // Assert 2
 
