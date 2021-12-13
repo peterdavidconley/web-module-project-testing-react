@@ -38,9 +38,15 @@ test('renders same number of options seasons are passed in', ()=>{
 
     // Arrange 
 
+    render(<Show show={testData} selectedSeason={'none'}/>)
+
     // Act 
 
+    const seasonOptions = screen.getByRole('select')
+
     // Assert 
+
+    expect(seasonOptions).toHaveLength(4)
 
 
 });
@@ -49,9 +55,15 @@ test('handleSelect is called when an season is selected', () => {
 
      // Arrange 
 
+     render(<Show selectedSeason={1}/>)
+
     // Act 
 
+    const handleCalled = screen.getByRole('');
+
     // Assert 
+
+    expect(handleCalled).toBeInTheDocument();
 
 });
 
@@ -59,19 +71,26 @@ test('component renders when no seasons are selected and when rerenders with a s
 
     // Arrange 1
 
-    render(<Show selectedSeason={null}/>)
+    const { rerender } = render(<Show selectedSeason={'none'}/>)
 
     // Act 1
 
+    const noSeasons = screen.queryAllByTestId('selectedSeason')
+
     // Assert 1
 
+    expect(noSeasons).not.toBeInTheDocument();
 
     // Arrange 2
 
+    rerender(<Show selectedSeason={1}/>)
+
     // Act 2
+
+    noSeasons = screen.queryAllByTestId('selectedSeason')
 
     // Assert 2
 
-
+    expect(noSeasons).toBeInTheDocument();
 
 });
