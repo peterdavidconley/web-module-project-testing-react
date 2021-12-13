@@ -5,6 +5,18 @@ import userEvent from '@testing-library/user-event';
 
 import Display from './../Display';
 
+const testData = {
+
+    name: 'Stranger Things',
+    seasons: [
+        {id: 0, name: 'Season 1', episodes: []},
+        {id: 1, name: 'Season 2', episodes: []},
+        {id: 2, name: 'Season 3', episodes: []},
+        {id: 3, name: 'Season 4', episodes: []},
+    ],
+    summary: 'A very strange thing happened in the 80s.',
+
+};
 
 test('renders without errors with no props', ()=>{
 
