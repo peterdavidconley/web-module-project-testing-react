@@ -6,9 +6,24 @@ import userEvent from '@testing-library/user-event';
 import Show from './../Show';
 import Loading from '../Loading';
 
+const testData = {
+
+    name: 'Stranger Things',
+    seasons: [
+        {id: 0, name: 'Season 1', episodes: []},
+        {id: 1, name: 'Season 2', episodes: []},
+        {id: 2, name: 'Season 3', episodes: []},
+        {id: 3, name: 'Season 4', episodes: []},
+    ],
+    summary: 'A very strange thing happened in the 80s.',
+
+};
+
+console.log(testData)
+
 test('renders without errors', ()=>{
 
-    render(<Show />)
+    render(<Show show={null}/>)
 
 });
 
@@ -37,7 +52,7 @@ test('handleSelect is called when an season is selected', () => {
     // Act 
 
     // Assert 
-    
+
 });
 
 test('component renders when no seasons are selected and when rerenders with a season passed in', () => {
