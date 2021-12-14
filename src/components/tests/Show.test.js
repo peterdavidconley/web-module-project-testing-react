@@ -42,7 +42,7 @@ test('renders same number of options seasons are passed in', ()=>{
 
     // Act 
 
-    const seasonOptions = screen.getByRole('option')
+    const seasonOptions = screen.queryAllByTestId('season-option')
     const dataOptions = testData.seasons.length
 
     // Assert 
@@ -58,12 +58,12 @@ test('handleSelect is called when an season is selected', () => {
 
      // Arrange 
 
-     render(<Show selectedSeason={1} handleSelect={handleCalled}/>)
+     render(<Show selectedSeason={1} handleSelect={handleCalled} show={testData}/>)
 
     // Act 
 
-    const button = screen.getByRole('button');
-    userEvent.click(button);
+    const select = screen.getByLabelText(/select a season/i);
+    userEvent.selectOptions(select, ['0']);
 
     // Assert 
 
@@ -71,30 +71,31 @@ test('handleSelect is called when an season is selected', () => {
 
 });
 
-test('component renders when no seasons are selected and when rerenders with a season passed in', () => {
+test('X component renders when no seasons are selected and when rerenders with a season passed in', () => {
 
     // Arrange 1
 
-    const { rerender } = render(<Show selectedSeason={'none'}/>)
+    const { rerender } = render(<Show selectedSeason={'none'} show={testData}/>)
 
     // Act 1
 
-    const noSeasons = screen.queryByText('Chapter One: The Vanishing of Will Byers')
+    //let noClass = document.getElementsByClassName('episode')
+    let episodes = screen.queryByTestId('episodes-container')
 
     // Assert 1
 
-    expect(noSeasons).not.toBeInTheDocument();
+    expect(episodes).not.toBeInTheDocument();
 
     // Arrange 2
 
-    rerender(<Show selectedSeason={1}/>)
+    rerender(<Show selectedSeason={1} show={testData}/>)
 
     // Act 2
 
-    noSeasons = screen.queryByText('Chapter One: The Vanishing of Will Byers')
+    episodes = screen.queryByTestId('episodes-container')
 
     // Assert 2
 
-    expect(noSeasons).toBeInTheDocument();
+    expect(episodes).toBeInTheDocument();
 
 });
