@@ -2,7 +2,8 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
+import mockFetchShow from '../../api/fetchShow';
+jest.mock('../../api/fetchShow');
 import Display from './../Display';
 import Show from '../Show';
 
@@ -25,21 +26,25 @@ test('renders without errors with no props', ()=>{
 
 });
 
-test('X renders Show component when the button is clicked ', ()=>{
+test('X renders Show component when the button is clicked ', async ()=>{
 
     // Arrange 
 
     render(<Display />)
+    mockFetchShow.mockResolvedValueOnce(testData);
 
     // Act
 
     const button = screen.getByRole('button')
     userEvent.click(button)
-    const showComponent = screen.getByText(/Stranger Things/i)
 
     // Assert
 
+    await waitFor(() => {
+    const showComponent = screen.getByTestId('show-container');
     expect(showComponent).toBeInTheDocument();
+    })
+
 
 });
 
@@ -53,7 +58,7 @@ test('X renders show season options matching your data when the button is clicke
 
     const button = screen.getByRole('button');
     userEvent.click(button);
-    const seasonOptions = screen.getByRole('select');
+    const seasonOptions = screen.getByTestId('season-option');
 
     // Assert
 
