@@ -26,7 +26,7 @@ test('renders without errors with no props', ()=>{
 
 });
 
-test('X renders Show component when the button is clicked ', async ()=>{
+test('renders Show component when the button is clicked ', async ()=>{
 
     // Arrange 
 
@@ -48,21 +48,24 @@ test('X renders Show component when the button is clicked ', async ()=>{
 
 });
 
-test('X renders show season options matching your data when the button is clicked', ()=>{
+test('X renders show season options matching your data when the button is clicked', async ()=>{
 
     // Arrange 
 
     render(<Display />)
+    mockFetchShow.mockResolvedValueOnce(testData);
 
     // Act
 
     const button = screen.getByRole('button');
     userEvent.click(button);
-    const seasonOptions = screen.getByTestId('season-option');
 
     // Assert
 
-    expect(seasonOptions).toHaveLength(4)
+    await waitFor(() => {
+        const seasonOptions = screen.getAllByTestId('season-option');
+        expect(seasonOptions).toHaveLength(4)
+    })
 
 });
 
